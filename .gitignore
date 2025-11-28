@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.pio/
+.vscode/
+
+# IDE/Editor
+*.swp
+*.swo
+*~
+.idea/
+*.sublime-*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+.clang_complete
+.gcc-flags.json
+
+# Firmware build artifacts
+*.bin
+*.elf
+*.hex
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# CodeQL artifacts
+_codeql_detected_source_root
