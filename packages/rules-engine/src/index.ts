@@ -181,20 +181,22 @@ export class RulesEngine {
     const wasTriggered = lastValue !== undefined && this.compareValue(lastValue, condition.operator, threshold);
 
     // Apply hysteresis - use different threshold depending on current state
+    // Hysteresis only applies to inequality operators (lt, gt, lte, gte)
+    // For equality operators (eq, neq), hysteresis doesn't make sense
     let effectiveThreshold = threshold;
     if (wasTriggered && hysteresis > 0) {
       switch (condition.operator) {
         case 'lt':
-          effectiveThreshold = threshold + hysteresis;
-          break;
-        case 'gt':
-          effectiveThreshold = threshold - hysteresis;
-          break;
         case 'lte':
           effectiveThreshold = threshold + hysteresis;
           break;
+        case 'gt':
         case 'gte':
           effectiveThreshold = threshold - hysteresis;
+          break;
+        case 'eq':
+        case 'neq':
+          // No hysteresis for equality operators
           break;
       }
     }

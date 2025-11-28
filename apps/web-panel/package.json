@@ -5,9 +5,9 @@
   "description": "TerraHub Web Panel - Mobile-first control interface",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview",
+    "dev": "echo \"Web panel development not yet configured\"",
+    "build": "echo \"Web panel build not yet configured\"",
+    "preview": "echo \"Web panel preview not yet configured\"",
     "lint": "echo \"No lint configured yet\"",
     "test": "echo \"No tests yet\"",
     "clean": "rm -rf dist"

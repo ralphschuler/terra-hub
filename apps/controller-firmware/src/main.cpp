@@ -74,9 +74,8 @@ void setup() {
     // Start enumeration process
     handleEnumeration();
     
-    // Setup WiFi and web server (controller only)
-    // TODO: Read WiFi credentials from config
-    // WiFi.begin(ssid, password);
+    // TODO(#1): Implement WiFi configuration loading from EEPROM/SPIFFS
+    // TODO(#1): Start web server after WiFi connection established
     // setupWebServer();
   } else {
     // Upstream connection detected - we are a slave
