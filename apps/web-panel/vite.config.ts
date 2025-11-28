@@ -4,6 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig(() => {
   const base = process.env.VITE_BASE_URL || "/";
+  const withBase = (path: string) => `${base}${path.replace(/^\/+/, '')}`;
 
   return {
     base,
