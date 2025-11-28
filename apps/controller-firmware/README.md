@@ -9,7 +9,7 @@ This firmware provides:
 - Relay control for 5 output channels
 - Current sensing for fault detection
 - Sensor reading (temperature, humidity, etc.)
-- Web server for configuration and monitoring
+- Web server that hosts **all automation logic** (rules engine, trigger evaluation, relay actions)
 - Auto-enumeration support for Daisy-Chain topology
 
 ## Hardware Requirements
@@ -44,10 +44,17 @@ pio device monitor
 
 ## Configuration
 
-The firmware can be configured via:
-1. Web interface at `http://<device-ip>/`
-2. Serial console
-3. JSON configuration upload
+All scheduling, rules, and relay triggers now run directly on the ESP32 web server so the web panel is just a UI. The firmware exposes a JSON API that the UI can call:
+
+- `GET /api/status` — device role, IP, relay states, and the latest sensor readings being evaluated locally
+- `GET /api/rules` — current rules stored on the ESP (persisted in NVS)
+- `POST /api/rules` — replace the full rule set; body is an array of `{ id, name, enabled, condition { sensor, op, threshold, hysteresis }, action { relayIndex, turnOn, minDurationMs } }`
+- `POST /api/relays` — immediately set a relay `{ relayIndex, turnOn }`
+- `POST /api/sensors/mock` — optional helper for tests/UIs to push sensor readings when physical sensors are absent
+- `GET /api/config` — SoftAP name/IP plus current station configuration
+- `POST /api/config/wifi` — save `{ ssid, password, hostname? }` and request a reconnect
+
+On first boot the controller broadcasts a setup SoftAP (`TerraHub-Setup` / password `terra-hub`) so the web UI can reach the API without an external router. After Wi-Fi credentials are saved, the ESP32 will join your LAN while keeping the setup AP available for recovery. TypeScript cannot run on the ESP32 directly, so the automation logic is implemented in C++ using Arduino primitives and ArduinoJson while keeping all evaluation on the device.
 
 ## Directory Structure
 
