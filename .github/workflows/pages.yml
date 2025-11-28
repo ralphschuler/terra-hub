@@ -29,6 +29,10 @@ jobs:
         with:
           version: 8
 
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -39,7 +43,7 @@ jobs:
         run: pnpm install --ignore-scripts
 
       - name: Build web app
-        run: pnpm --filter @terra-hub/web-panel build
+        run: pnpm --filter @terra-hub/web-panel build -- --base=${{ steps.pages.outputs.base_url }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
