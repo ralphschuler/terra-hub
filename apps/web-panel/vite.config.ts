@@ -3,11 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig(() => {
-  const rawBase = process.env.npm_config_base || '/';
-  const normalizedBase = rawBase.startsWith('/') ? rawBase : `/${rawBase}`;
-  const base = normalizedBase.endsWith('/') ? normalizedBase : `${normalizedBase}/`;
-
-  const withBase = (path: string) => `${base}${path.replace(/^\/+/, '')}`;
+  const base = process.env.VITE_BASE_URL || "/";
 
   return {
     base,
