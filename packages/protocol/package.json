@@ -8,10 +8,13 @@
   "scripts": {
     "build": "tsc",
     "test": "echo \"No tests yet\"",
-    "lint": "echo \"No lint configured yet\"",
-    "clean": "rm -rf dist"
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "formatter:write": "prettier --write \"src/**/*.{ts,js,json}\" \"*.{ts,js,json,md}\"",
+    "liners:fix": "pnpm formatter:write"
   },
   "devDependencies": {
+    "prettier": "^3.3.3",
     "typescript": "^5.3.0"
   },
   "files": [

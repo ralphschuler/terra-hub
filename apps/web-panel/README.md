@@ -1,88 +1,76 @@
 # TerraHub Web Panel
 
-Mobile-first web interface for TerraHub terrarium control.
+Mobile-first PWA for discovering and managing multiple TerraHub controllers.
 
-## Overview
+## Features
 
-The web panel provides a responsive, mobile-optimized interface for:
-- Real-time dashboard with sensor readings and relay states
-- Port configuration and module mapping
-- Schedule editor for day/night cycles
-- Rules editor for sensor-based automation
-- Network and backup settings
+- Mobile-first PWA for discovering and managing multiple TerraHub controllers.
+- Vue 3 + Vite application with Tailwind CSS styling.
+- Progressive Web App (installable, offline-ready with auto-updates and cached API reads).
+- TanStack Query-powered data fetching for discovery and controller health polling.
+- Manual controller entry plus unicast-friendly network discovery, with local persistence for multiple controllers.
+- Responsive layout tuned for phones and tablets, optimized for touch.
+- One-click simulator controller for exercising the UI without hardware.
+- ESP configuration page to provision Wi-Fi/hostname during first-boot setup.
 
-## Technology Stack
-
-- **Framework:** Vue 3 with Composition API
-- **Build Tool:** Vite
-- **UI Components:** Custom components (mobile-first)
-- **State Management:** Pinia
-- **Styling:** Tailwind CSS
-- **HTTP Client:** Axios
-
-## Development
+## Getting started
 
 ```bash
-# Install dependencies
+# Install workspace dependencies
 pnpm install
 
-# Start development server
-pnpm dev
+# Start the dev server
+pnpm --filter @terra-hub/web-panel dev
 
-# Build for production
-pnpm build
+# Type-check
+pnpm --filter @terra-hub/web-panel lint
 
-# Preview production build
-pnpm preview
+# Build & preview production assets
+pnpm --filter @terra-hub/web-panel build
+pnpm --filter @terra-hub/web-panel preview
 ```
 
-## Project Structure
+### Using the simulator controller
+
+- Launch the web panel and open the **Add a controller** card in the sidebar.
+- Click **Add simulator controller** to pin a mock controller that streams realistic sensor values.
+- The simulator stays persisted locally, so you can explore the dashboard without any physical devices.
+
+### First-time provisioning (controller access point)
+
+1. Power on the controller; it will broadcast `TerraHub-Setup` (password `terra-hub`).
+2. Connect to that network from your phone, then browse to `http://192.168.4.1` to open the PWA.
+3. Switch to the **Settings** tab and enter your home Wi-Fi SSID/password and optional hostname.
+4. Save to let the ESP32 join your LAN; the setup AP remains available for recovery.
+
+## Project structure
 
 ```
-web-panel/
-├─ public/           # Static assets
+apps/web-panel/
+├─ public/           # Static assets and PWA icons
 ├─ src/
-│  ├─ assets/       # Images, fonts, etc.
-│  ├─ components/   # Vue components
-│  ├─ composables/  # Vue composables
-│  ├─ layouts/      # Page layouts
-│  ├─ pages/        # Page components
+│  ├─ api/          # HTTP helpers
+│  ├─ components/   # UI components
 │  ├─ stores/       # Pinia stores
-│  ├─ services/     # API services
+│  ├─ views/        # Page-level views
 │  ├─ App.vue       # Root component
 │  └─ main.ts       # Entry point
 ├─ index.html       # HTML template
-├─ vite.config.ts   # Vite configuration
-├─ tailwind.config.js
+├─ vite.config.ts   # Vite + PWA config
+├─ tailwind.config.cjs
 └─ package.json
 ```
 
-## Pages
+## API surface
 
-1. **Dashboard** - Live sensor readings, relay states, fault alerts
-2. **Ports** - Configure port types and module assignments
-3. **Schedules** - Create and manage time-based schedules
-4. **Rules** - Define sensor threshold rules and actions
-5. **Settings** - Network, time, and backup configuration
+The app expects the following endpoints to be exposed by controllers or a gateway:
 
-## API Communication
+- `GET /api/controllers/discover` → `{ controllers: ControllerSummary[] }`
+- `GET /api/controllers/status?host=<host>&port=<port>&protocol=<proto>` → `ControllerStatus`
+- `GET /api/config` → `{ apSsid, apPassword, apIp, stationIp, stationConnected, stationSsid, hostname, wifiConfigured }`
+- `POST /api/config/wifi` → `{ ssid, hostname, ip, connected }`
 
-The panel communicates with the TerraHub controller via:
-- HTTP REST API for configuration and commands
-- WebSocket for real-time state updates
-
-## Building for Deployment
-
-The production build can be:
-- Served directly from the ESP32's SPIFFS filesystem
-- Hosted separately and connected to the controller API
-
-```bash
-# Build optimized for ESP32 SPIFFS
-pnpm build
-
-# The output in dist/ can be uploaded to SPIFFS
-```
+Both calls are made through TanStack Query for caching and refetch behavior.
 
 ## License
 

@@ -17,13 +17,16 @@
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
-    "clean": "pnpm -r clean"
+    "clean": "pnpm -r clean",
+    "formatter:write": "prettier --write .",
+    "liners:fix": "pnpm formatter:write"
   },
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=8.0.0"
   },
   "devDependencies": {
+    "prettier": "^3.3.3",
     "typescript": "^5.3.0"
   }
 }

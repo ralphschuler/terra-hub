@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="TerraHub logo">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#66aeff" />
+      <stop offset="100%" stop-color="#0a4696" />
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="48" fill="#0b1224" />
+  <g stroke="url(#g)" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M64 180c24-12 48-12 72 0s48 12 72 0" />
+    <path d="M64 136c24-12 48-12 72 0s48 12 72 0" />
+    <path d="M64 92c24-12 48-12 72 0s48 12 72 0" />
+  </g>
+  <circle cx="94" cy="92" r="12" fill="#66aeff" />
+  <circle cx="128" cy="136" r="12" fill="#66aeff" />
+  <circle cx="162" cy="180" r="12" fill="#66aeff" />
+</svg>

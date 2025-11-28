@@ -5,27 +5,34 @@
   "description": "TerraHub Web Panel - Mobile-first control interface",
   "type": "module",
   "scripts": {
-    "dev": "echo \"Web panel development not yet configured\"",
-    "build": "echo \"Web panel build not yet configured\"",
-    "preview": "echo \"Web panel preview not yet configured\"",
-    "lint": "echo \"No lint configured yet\"",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "vue-tsc --noEmit",
     "test": "echo \"No tests yet\"",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "formatter:write": "prettier --write \"src/**/*.{ts,js,vue}\" \"public/**/*.{json,js}\" \"*.{ts,js,css,md}\"",
+    "liners:fix": "pnpm formatter:write"
   },
   "dependencies": {
     "@terra-hub/config-schema": "workspace:*",
-    "vue": "^3.3.0",
-    "vue-router": "^4.2.0",
+    "@tanstack/vue-query": "^5.59.20",
+    "axios": "^1.6.0",
     "pinia": "^2.1.0",
-    "axios": "^1.6.0"
+    "vue": "^3.3.0",
+    "vue-router": "^4.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.0",
+    "@vite-pwa/assets-generator": "^0.2.4",
+    "@types/node": "^20.11.24",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "prettier": "^3.3.3",
+    "tailwindcss": "^3.3.0",
     "typescript": "^5.3.0",
     "vite": "^5.0.0",
-    "vue-tsc": "^1.8.0",
-    "tailwindcss": "^3.3.0",
-    "postcss": "^8.4.0",
-    "autoprefixer": "^10.4.0"
+    "vite-plugin-pwa": "^0.19.8",
+    "vue-tsc": "^1.8.0"
   }
 }
