@@ -54,6 +54,9 @@ importers:
       pinia:
         specifier: ^2.1.0
         version: 2.3.1(typescript@5.9.3)(vue@3.5.25)
+      workbox-window:
+        specifier: ^7.4.0
+        version: 7.4.0
       vue:
         specifier: ^3.3.0
         version: 3.5.25(typescript@5.9.3)
