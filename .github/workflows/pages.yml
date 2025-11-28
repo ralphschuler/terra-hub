@@ -43,7 +43,9 @@ jobs:
         run: pnpm install --ignore-scripts
 
       - name: Build web app
-        run: pnpm --filter @terra-hub/web-panel build -- --base=${{ steps.pages.outputs.base_url }}
+        env:
+          VITE_BASE_URL: ${{ steps.pages.outputs.base_url }}
+        run: pnpm --filter @terra-hub/web-panel build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
