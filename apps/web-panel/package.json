@@ -17,7 +17,7 @@
   "dependencies": {
     "@terra-hub/config-schema": "workspace:*",
     "@tanstack/vue-query": "^5.59.20",
-    "axios": "^1.6.0",
+    "axios": "^1.15.0",
     "pinia": "^2.1.0",
     "workbox-window": "^7.4.0",
     "vue": "^3.3.0",
